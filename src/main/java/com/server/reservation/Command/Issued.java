@@ -15,12 +15,14 @@ public class Issued implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
-            ItemStack itemStack = new ItemStack(Material.PAPER);
-            ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.setDisplayName("야생 티켓");
-            itemMeta.setLore(Collections.singletonList("제한 시간 30분"));
-            itemStack.setItemMeta(itemMeta);
-            player.getInventory().addItem(itemStack);
+            if (player.isOp()) {
+                ItemStack itemStack = new ItemStack(Material.PAPER);
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.setDisplayName("야생 티켓");
+                itemMeta.setLore(Collections.singletonList("제한 시간 30분"));
+                itemStack.setItemMeta(itemMeta);
+                player.getInventory().addItem(itemStack);
+            }
         }
         return false;
     }
