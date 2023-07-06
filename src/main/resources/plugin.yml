@@ -1,0 +1,8 @@
+name: Reservation
+version: '1.0'
+main: com.server.reservation.Main
+api-version: '1.13'
+
+commands:
+  ticket:
+    aliases: "티켓"
