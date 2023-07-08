@@ -66,36 +66,15 @@ public final class Main extends JavaPlugin {
         }
     }
 
-    public void thrTime(Player player) {
-        YamlConfiguration config = UserData.getPlayerConfig(player);
-        if (taskId != -1) {
-            // If there is already a running BukkitRunnable, cancel it
-            Bukkit.getScheduler().cancelTask(taskId);
-            taskId = -1;
-        }
-        taskId = new BukkitRunnable() {
-            int time = 0;
-
-            @Override
-            public void run() {
-                if (time == 1800) {
-                    config.set("제한시간", 0);
-                    saveYamlConfiguration();
-                    player.sendMessage("30분이 지났습니다. 티켓 재사용이 가능합니다!");
-                }
-                time++;
-            }
-        }.runTaskTimer(Main.getPlugin(), 0, 20).getTaskId();
-    }
-
-    public void twrTime(Player player) {
+    public void startTimer(Player player) {
 
         taskId = new BukkitRunnable() {
             int time = 0;
 
             @Override
             public void run() {
-                if (time == 1200) { //일단 10초로 설정해 놓음
+
+                if (time == 5) { //1200
                     String worldName = plugin.getConfig().getString("2.world");
                     double x = plugin.getConfig().getDouble("2.x");
                     double y = plugin.getConfig().getDouble("2.y");
@@ -110,6 +89,12 @@ public final class Main extends JavaPlugin {
 
                     player.teleport(randomLocation);
                     player.sendMessage("랜덤좌표 이동에 성공했습니다.");
+                }
+
+                if (time == 10) { // 1800
+                    config.set("제한시간", 0);
+                    saveYamlConfiguration();
+                    player.sendMessage("30분이 지났습니다. 티켓 재사용이 가능합니다!");
                 }
                 time++;
             }
